@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="360" viewBox="0 0 1500 360">
+  <defs>
+    <style>
+      .title { font-family: 'Times New Roman', serif; font-size: 30px; font-weight: 700; fill: #111827; }
+      .text { font-family: 'Times New Roman', serif; font-size: 22px; fill: #111827; }
+      .box { stroke: #374151; stroke-width: 2.2; rx: 12; ry: 12; }
+      .arrow { stroke: #374151; stroke-width: 2.8; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="12" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#374151" />
+    </marker>
+  </defs>
+  <rect width="1500" height="360" fill="#ffffff" />
+
+  <rect class="box" x="70" y="130" width="190" height="100" fill="#dbeafe" />
+  <text x="165" y="170" text-anchor="middle" class="title">Ảnh đầu vào</text>
+  <text x="165" y="202" text-anchor="middle" class="text">256 x 256</text>
+
+  <rect class="box" x="355" y="130" width="235" height="100" fill="#dcfce7" />
+  <text x="472.5" y="170" text-anchor="middle" class="title">VGG19</text>
+  <text x="472.5" y="202" text-anchor="middle" class="text">trích xuất đặc trưng</text>
+
+  <rect class="box" x="690" y="130" width="240" height="100" fill="#fef3c7" />
+  <text x="810" y="170" text-anchor="middle" class="title">Gộp trung bình</text>
+  <text x="810" y="202" text-anchor="middle" class="text">toàn cục</text>
+
+  <rect class="box" x="1030" y="130" width="175" height="100" fill="#ede9fe" />
+  <text x="1117.5" y="170" text-anchor="middle" class="title">Lớp ẩn</text>
+  <text x="1117.5" y="202" text-anchor="middle" class="text">học đặc trưng</text>
+
+  <rect class="box" x="1305" y="130" width="160" height="100" fill="#ffe4e6" />
+  <text x="1385" y="170" text-anchor="middle" class="title">Phân loại</text>
+  <text x="1385" y="202" text-anchor="middle" class="text">ba nhóm ảnh</text>
+
+  <line class="arrow" x1="260" y1="180" x2="355" y2="180" />
+  <line class="arrow" x1="590" y1="180" x2="690" y2="180" />
+  <line class="arrow" x1="930" y1="180" x2="1030" y2="180" />
+  <line class="arrow" x1="1205" y1="180" x2="1305" y2="180" />
+</svg>
