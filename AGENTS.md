@@ -16,9 +16,9 @@
 ## Main Sources
 - Main training notebooks: `notebooks/vgg-gap.ipynb` and `notebooks/densenet.ipynb`.
 - Dataset creation notebook: `notebooks/data.ipynb`.
-- Extra non-main experiment: `notebooks/vgg-fcssam.ipynb`.
+- Extra non-main experiment: `notebooks/vgg-fcssam.ipynb`; mention only as a tried variant, not a selected model.
 - Current explainability notebooks: `notebooks/gradcam-vgg.ipynb` and `notebooks/gradcam-densenet.ipynb`.
-- Auxiliary comparison notebooks live in `notebooks/aux/` for `2 : 1 : 3` and `3 : 1 : 3` only.
+- Auxiliary comparison notebooks live in `notebooks/so-sanh/` for `2 : 1 : 3` and `3 : 1 : 3` only.
 
 ## Labels And Report Prose
 - Code class order for the active main notebooks is `normal`, `pneumonia_only`, `effusion_only`.
@@ -33,6 +33,7 @@
 - Main DenseNet121-FCSSAM tràn dịch metrics: precision `0.650704`, recall `0.634615`, F1 `0.642559`.
 - Auxiliary comparison: `2 : 1 : 3` macro F1 VGG `0.843077`, DenseNet `0.869955`; effusion F1 VGG `0.638858`, DenseNet `0.700893`.
 - Auxiliary comparison: `3 : 1 : 3` macro F1 VGG `0.852399`, DenseNet `0.859390`; effusion F1 VGG `0.668122`, DenseNet `0.677668`.
+- VGG19-FCSSAM trial on `2 : 1 : 1`: accuracy `0.859497`, macro F1 `0.824360`, weighted F1 `0.864322`, macro AUC `0.939412`, effusion F1 `0.611591`; conclude it did not improve over VGG19-GAP.
 
 ## Pipeline Details
 - Fair comparisons must keep the same dataset version, split, image size, grayscale decode, resize, contrast step, RGB conversion, augmentation, and normalization.
