@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 32px; font-weight: 700; fill: #174a8b; }
+      .box-title { font-family: Arial, sans-serif; font-size: 22px; font-weight: 700; fill: #111827; }
+      .box-sub { font-family: Arial, sans-serif; font-size: 16px; font-weight: 600; fill: #263244; }
+      .arrow-line { stroke: #243044; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow-head { fill: #243044; }
+      .small { font-family: Arial, sans-serif; font-size: 15px; font-weight: 600; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" fill="#f7f9fc" />
+  <text x="640" y="48" text-anchor="middle" class="title">Sơ đồ nguyên lý Grad-CAM++</text>
+  <line x1="455" y1="64" x2="825" y2="64" stroke="#d9a11e" stroke-width="4" />
+
+  <!-- Hàng 1 -->
+  <rect x="60" y="110" width="250" height="88" rx="16" fill="#e8f1ff" stroke="#3b82f6" stroke-width="2.2" />
+  <text x="185" y="145" text-anchor="middle" class="box-title">Ảnh X-quang</text>
+  <text x="185" y="171" text-anchor="middle" class="box-sub">ảnh đầu vào</text>
+
+  <line x1="314" y1="154" x2="351" y2="154" class="arrow-line" />
+  <polygon points="365,154 351,146 351,162" class="arrow-head" />
+
+  <rect x="370" y="110" width="250" height="88" rx="16" fill="#dcfce7" stroke="#16a34a" stroke-width="2.2" />
+  <text x="495" y="145" text-anchor="middle" class="box-title">Mô hình CNN</text>
+  <text x="495" y="171" text-anchor="middle" class="box-sub">mô hình đã huấn luyện</text>
+
+  <line x1="624" y1="154" x2="661" y2="154" class="arrow-line" />
+  <polygon points="675,154 661,146 661,162" class="arrow-head" />
+
+  <rect x="680" y="110" width="250" height="88" rx="16" fill="#fff7cc" stroke="#d9a11e" stroke-width="2.2" />
+  <text x="805" y="145" text-anchor="middle" class="box-title">Lớp mục tiêu</text>
+  <text x="805" y="171" text-anchor="middle" class="box-sub">chọn lớp cần giải thích</text>
+
+  <line x1="934" y1="154" x2="971" y2="154" class="arrow-line" />
+  <polygon points="985,154 971,146 971,162" class="arrow-head" />
+
+  <rect x="990" y="110" width="250" height="88" rx="16" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.2" />
+  <text x="1115" y="145" text-anchor="middle" class="box-title">Bản đồ đặc trưng</text>
+  <text x="1115" y="171" text-anchor="middle" class="box-sub">lớp tích chập sâu cuối</text>
+
+  <!-- Rẽ xuống -->
+  <line x1="1115" y1="202" x2="1115" y2="241" class="arrow-line" />
+  <polygon points="1115,255 1107,241 1123,241" class="arrow-head" />
+
+  <!-- Hàng 2, đi ngược từ phải sang trái -->
+  <rect x="990" y="260" width="250" height="94" rx="16" fill="#fef3c7" stroke="#f59e0b" stroke-width="2.2" />
+  <text x="1115" y="296" text-anchor="middle" class="box-title">Tính gradient</text>
+  <text x="1115" y="322" text-anchor="middle" class="box-sub">đo vùng ảnh hưởng mạnh</text>
+  <text x="1115" y="342" text-anchor="middle" class="box-sub">đến dự đoán</text>
+
+  <line x1="986" y1="307" x2="949" y2="307" class="arrow-line" />
+  <polygon points="935,307 949,299 949,315" class="arrow-head" />
+
+  <rect x="680" y="260" width="250" height="94" rx="16" fill="#ffedd5" stroke="#ea580c" stroke-width="2.2" />
+  <text x="805" y="296" text-anchor="middle" class="box-title">Tính trọng số</text>
+  <text x="805" y="322" text-anchor="middle" class="box-sub">alpha và trọng số kênh</text>
+  <text x="805" y="342" text-anchor="middle" class="box-sub">của Grad-CAM++</text>
+
+  <line x1="676" y1="307" x2="639" y2="307" class="arrow-line" />
+  <polygon points="625,307 639,299 639,315" class="arrow-head" />
+
+  <rect x="370" y="260" width="250" height="94" rx="16" fill="#fee2e2" stroke="#ef4444" stroke-width="2.2" />
+  <text x="495" y="296" text-anchor="middle" class="box-title">Tạo heatmap</text>
+  <text x="495" y="322" text-anchor="middle" class="box-sub">vùng nóng đóng góp</text>
+  <text x="495" y="342" text-anchor="middle" class="box-sub">cho lớp mục tiêu</text>
+
+  <line x1="366" y1="307" x2="329" y2="307" class="arrow-line" />
+  <polygon points="315,307 329,299 329,315" class="arrow-head" />
+
+  <rect x="60" y="260" width="250" height="94" rx="16" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.2" />
+  <text x="185" y="296" text-anchor="middle" class="box-title">Resize và chuẩn hóa</text>
+  <text x="185" y="322" text-anchor="middle" class="box-sub">đưa về 256 x 256</text>
+  <text x="185" y="342" text-anchor="middle" class="box-sub">cùng kích thước ảnh</text>
+
+  <!-- Kết quả -->
+  <rect x="340" y="415" width="600" height="118" rx="20" fill="#ecfdf5" stroke="#10b981" stroke-width="2.6" />
+  <text x="640" y="458" text-anchor="middle" class="box-title">Overlay heatmap lên ảnh gốc</text>
+  <text x="640" y="488" text-anchor="middle" class="box-sub">vùng màu nóng cho biết mô hình chú ý vào đâu</text>
+  <text x="640" y="514" text-anchor="middle" class="box-sub">khi dự đoán lớp được chọn</text>
+
+  <path d="M185 358 L185 474 L321 474" class="arrow-line" />
+  <polygon points="335,474 321,466 321,482" class="arrow-head" />
+
+  <rect x="420" y="575" width="440" height="72" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+  <circle cx="465" cy="611" r="13" fill="#ef4444" />
+  <text x="490" y="617" class="small">đỏ: chú ý mạnh</text>
+  <circle cx="665" cy="611" r="13" fill="#facc15" />
+  <text x="690" y="617" class="small">vàng: vùng nóng</text>
+</svg>
