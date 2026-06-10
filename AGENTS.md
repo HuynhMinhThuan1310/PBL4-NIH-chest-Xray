@@ -2,62 +2,61 @@
 
 ## Project Shape
 - This repo is a Kaggle/TensorFlow chest X-ray experiment workspace plus Word/PDF report assets, not a package app.
-- There is no root README for the project, CI, lockfile, formatter config, test runner, or repo-local OpenCode config.
-- Main executable sources are notebooks in `trains/`; explainability notebooks are in `code/explainability_notebooks/`.
-- Current Word report is `Bao_Cao_PBL4_VGG19_DenseNet121_FCSSAM.docx`.
+- There is no root README, CI, lockfile, formatter config, test runner, or repo-local OpenCode config.
+- Current Word report is `report/bao-cao.docx`.
+- `report/figs/` stores selected figure sources; images already inserted in `.docx` are embedded in Word.
 
-## Report Assets
-- `report_assets/figures/` contains generated PNG/SVG sources used for the Word report.
-- Figures already inserted into `.docx` are embedded; moving source images does not remove them from Word.
-- Do not edit user-authored references (`fanet.docx`, `vgg19.docx`, PDFs, old reports) unless explicitly asked.
+## Current Report Scope
+- The current report compares `VGG19-GAP` and `DenseNet121-FCSSAM` on the main `2 : 1 : 1` dataset.
+- Treat `VGG19-GAP` as a main independent model, not a baseline/sub-model.
+- Describe `DenseNet121-FCSSAM` as following FA-Net/FCSSAM ideas, not as an exact reproduction of the paper.
+- `2 : 1 : 3` and `3 : 1 : 3` are auxiliary comparison runs only.
+- Legacy `ResNet50-FCSSAM` notebooks are old artifacts and not part of the current main report.
 
-## Current Main Models
-- The current report compares `VGG19-GAP` and `DenseNet121-FCSSAM`.
-- Treat `VGG19-GAP` as a main independent model, not a secondary/baseline/sub-model.
-- Describe `DenseNet121-FCSSAM` as following FA-Net/FCSSAM ideas, not as a guaranteed exact reproduction of the paper.
-- `legacy_resnet50_*` notebooks are old comparison artifacts and are not part of the current main report.
-
-## Notebook Sources
-- Main dataset pair: `trains/vgg19_gap_phien_ban_chinh_3_1_3.ipynb` and `trains/densenet121_fcssam_phien_ban_chinh_3_1_3.ipynb`.
-- Auxiliary pairs use suffixes `phien_ban_ban_dau_2_1_1` and `tang_tran_dich_2_1_3`.
-- Explainability notebooks: `code/explainability_notebooks/vgg19_gap_gradcam_fact.ipynb`, `code/explainability_notebooks/densenet121_fcssam_gradcam_attention_fact.ipynb`, and legacy `code/explainability_notebooks/legacy_resnet50_fcssam_gradcam_fact.ipynb`.
+## Main Sources
+- Main training notebooks: `notebooks/vgg-gap.ipynb` and `notebooks/densenet.ipynb`.
+- Dataset creation notebook: `notebooks/data.ipynb`.
+- Extra non-main experiment: `notebooks/vgg-fcssam.ipynb`.
+- Current explainability notebooks: `notebooks/gradcam-vgg.ipynb` and `notebooks/gradcam-densenet.ipynb`.
+- Auxiliary comparison notebooks live in `notebooks/aux/` for `2 : 1 : 3` and `3 : 1 : 3` only.
 
 ## Labels And Report Prose
-- Active code class order is `normal`, `pneumonia`, `effusion`.
-- In Vietnamese report prose, render labels as `bình thường`, `viêm phổi`, `tràn dịch màng phổi`; avoid raw code labels.
-- Do not reintroduce old `pneumonia_only` / `effusion_only` names unless intentionally discussing old runs.
-- Avoid reader-facing internal terms such as `normal3`, notebook filenames, Kaggle paths, or `.ipynb` names in the Word report.
-- Do not discuss NIH multi-label/mixed-label caveats in the report unless the user explicitly asks; describe the groups simply as the three target classes.
+- Code class order for the active main notebooks is `normal`, `pneumonia_only`, `effusion_only`.
+- In Vietnamese report prose, render labels as `bình thường`, `viêm phổi`, `tràn dịch màng phổi`.
+- Avoid reader-facing internal terms such as `normal3`, notebook filenames, Kaggle paths, `.ipynb`, `pneumonia_only`, or `effusion_only` in the Word report.
+- Do not discuss NIH multi-label/mixed-label caveats in the report unless explicitly asked; describe the groups as the three target classes.
 
-## Dataset Versions
-- Current main dataset is the `3 : 1 : 3` train ratio version, reported as `phiên bản chính` or `phiên bản cuối`.
-- Auxiliary versions: `2 : 1 : 1` is `phiên bản ban đầu`; `2 : 1 : 3` is `phiên bản tăng tràn dịch`.
-- Required Kaggle image inputs for training are NIH chest X-rays and the chest-xray-pneumonia dataset; manifests alone are not enough because image paths point to original Kaggle datasets.
-- Current main manifest root used in notebooks is `/kaggle/input/datasets/thuanminh1310/datasets-version3/pbl4_main_effusion_heavy_normal3_nih_datasets`.
+## Current Main Results
+- Main VGG19-GAP test-threshold metrics: accuracy `0.863618`, macro F1 `0.835117`, weighted F1 `0.870336`, macro AUC `0.951155`.
+- Main VGG19-GAP tràn dịch metrics: precision `0.552361`, recall `0.739011`, F1 `0.632197`.
+- Main DenseNet121-FCSSAM test-threshold metrics: accuracy `0.884631`, macro F1 `0.841222`, weighted F1 `0.884030`, macro AUC `0.953359`.
+- Main DenseNet121-FCSSAM tràn dịch metrics: precision `0.650704`, recall `0.634615`, F1 `0.642559`.
+- Auxiliary comparison: `2 : 1 : 3` macro F1 VGG `0.843077`, DenseNet `0.869955`; effusion F1 VGG `0.638858`, DenseNet `0.700893`.
+- Auxiliary comparison: `3 : 1 : 3` macro F1 VGG `0.852399`, DenseNet `0.859390`; effusion F1 VGG `0.668122`, DenseNet `0.677668`.
 
-## Fair Comparison Constraints
-- VGG19-GAP and DenseNet121-FCSSAM must use the same dataset version, split, `IMAGE_SIZE`, grayscale decode, resize method, contrast step, grayscale-to-RGB conversion, augmentation, and normalization.
-- Current shared preprocessing before model: grayscale decode, bilinear resize to `256x256`, `enhance_xray_contrast`, `tf.image.grayscale_to_rgb`, train-only `RandomTranslation(0.015, 0.015)`, `RandomZoom(0.03, 0.03)`, `RandomFlip("horizontal")`, RGB->BGR, subtract Caffe/ImageNet mean `[103.939, 116.779, 123.680]`.
-- Architecture differences are allowed after preprocessing: VGG19-GAP uses `vgg_gap`; DenseNet121-FCSSAM uses DenseNet121 + FCSSAM + `densenet_gap`.
+## Pipeline Details
+- Fair comparisons must keep the same dataset version, split, image size, grayscale decode, resize, contrast step, RGB conversion, augmentation, and normalization.
+- Shared preprocessing: grayscale decode, bilinear resize to `256x256`, `enhance_xray_contrast`, grayscale-to-RGB, train-only `RandomTranslation(0.015, 0.015)`, `RandomZoom(0.03, 0.03)`, `RandomFlip("horizontal")`, RGB-to-BGR, subtract Caffe/ImageNet mean `[103.939, 116.779, 123.680]`.
+- Threshold evaluation tunes the tràn dịch threshold on validation, then applies the chosen threshold to test.
+- Main thresholds: VGG19-GAP `0.71`; DenseNet121-FCSSAM `0.79`.
+- FACT deletion AUC lower is better because target probability drops faster after deleting hot regions.
+- Report Grad-CAM++ layers: VGG19-GAP `block5_conv4`; DenseNet121-FCSSAM `conv4_block24_concat`.
+- FACT deletion AUC: VGG19-GAP `0.453555`; DenseNet121-FCSSAM `0.320526`.
 
-## Current Results To Preserve
-- Main VGG19-GAP test-threshold metrics: macro F1 `0.852399`, effusion precision `0.603550`, recall `0.748166`, F1 `0.668122`, macro AUC `0.957893`.
-- Main DenseNet121-FCSSAM test-threshold metrics: macro F1 `0.859390`, effusion precision `0.616000`, recall `0.753056`, F1 `0.677668`, macro AUC `0.965433`.
-- DenseNet121-FCSSAM `2 : 1 : 3` auxiliary run has higher macro F1 (`0.869955`) and effusion F1 (`0.700893`), but the report uses the `3 : 1 : 3` pair as the main fair comparison.
-
-## Evaluation And Explainability
-- Prefer `macro_f1`, per-class `tràn dịch màng phổi` precision/recall/F1, confusion matrix, and AUC over accuracy alone.
-- Threshold notebooks tune an `effusion` threshold on validation, then apply the selected threshold to test.
-- Grad-CAM layers used for report comparison: VGG19-GAP `block4_conv4`; DenseNet121-FCSSAM `conv4_block6_concat`.
-- FACT deletion AUC lower is better in report prose because target probability drops faster after deleting hot regions.
+## Word Report Rules
+- Do not edit user-authored references in `report/refs/` unless explicitly asked.
+- In the Word report, keep table captions above tables and figure captions below figures.
+- Captions are centered/bold; explanatory paragraphs are justified/not bold.
+- Prefer PNG for inserted figures; SVG can have Word caching/font issues.
+- If adding headings, set Word outline levels so they appear in the Navigation Pane.
 
 ## Validation
 - Validate edited notebooks with: `python -c "import json, ast; from pathlib import Path; files=['NOTEBOOK.ipynb']; [ast.parse(''.join(c.get('source', []))) for f in files for c in json.loads(Path(f).read_text(encoding='utf-8'))['cells'] if c.get('cell_type')=='code']; print('ok')"`.
-- Full training usually cannot run locally because data paths are Kaggle-only; local verification is limited to JSON/syntax/string checks unless Kaggle artifacts are downloaded.
-- For Word edits, verify the document opens with Word COM when possible and check stale text such as `ResNet`, `normal3`, `notebook`, `.ipynb`, `pneumonia_only`, `effusion_only`, `Vị trí chèn`, `sẽ trình bày`.
+- Full training usually cannot run locally because data paths are Kaggle-only; local verification is limited to JSON/syntax/string checks unless Kaggle artifacts are available.
+- For Word edits, verify `zip bad: None`, parse `word/document.xml`, and open with Word COM when possible.
+- After Word edits, scan for stale text: `normal3`, `.ipynb`, `pneumonia_only`, `effusion_only`, `Vị trí chèn`, `sẽ trình bày`, `conv4_block6_concat`, `block4_conv4`.
 
 ## Editing Rules
 - Use `apply_patch` for manual text edits; avoid ad-hoc writes that can corrupt notebooks.
-- Create new experiment filenames and new `/kaggle/working/...` output dirs; do not overwrite completed notebooks or Kaggle result artifacts.
+- Create new experiment filenames and new `/kaggle/working/...` output dirs; do not overwrite completed Kaggle artifacts.
 - Keep generated notebooks output-cleared unless the user intentionally provides Kaggle-output notebooks for analysis.
-- In the Word report, keep table captions above tables and figure captions below figures; captions are centered/bold, explanatory paragraphs are justified/not bold.
