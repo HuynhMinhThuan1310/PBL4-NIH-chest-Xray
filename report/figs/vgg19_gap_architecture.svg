@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1350" height="760" viewBox="0 0 1350 760">
+  <defs>
+    <pattern id="grid" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M 22 0 L 0 0 0 22" fill="none" stroke="#e5e7eb" stroke-width="1" />
+    </pattern>
+    <marker id="arrow-black" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L9,5 L1,9 Z" fill="#111827" />
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L9,5 L1,9 Z" fill="#dc2626" />
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #111827; stroke-width: 2; }
+      .conv { fill: #dbeafe; stroke: #2563eb; stroke-width: 2.4; }
+      .gap { fill: #ccfbf1; stroke: #0f766e; stroke-width: 2.4; }
+      .drop { fill: #f3f4f6; stroke: #4b5563; stroke-width: 2.2; }
+      .dense { fill: #fef3c7; stroke: #d97706; stroke-width: 2.4; }
+      .softmax { fill: #fee2e2; stroke: #dc2626; stroke-width: 2.2; }
+      .output { fill: #fecaca; stroke: #991b1b; stroke-width: 2.2; }
+      .arrow { stroke: #111827; stroke-width: 2.4; fill: none; marker-end: url(#arrow-black); }
+      .pool-arrow { stroke: #dc2626; stroke-width: 3.2; fill: none; marker-end: url(#arrow-red); }
+      .title { font: 700 28px Arial, sans-serif; fill: #111827; }
+      .text { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .small { font: 400 15px Arial, sans-serif; fill: #111827; }
+      .tiny { font: 400 13px Arial, sans-serif; fill: #4b5563; }
+      .legend { font: 400 14px Arial, sans-serif; fill: #111827; }
+    </style>
+  </defs>
+
+  <rect width="1350" height="760" fill="url(#grid)" />
+  <text x="675" y="42" text-anchor="middle" class="title">VGG19-GAP</text>
+
+  <!-- Input -->
+  <rect x="35" y="75" width="150" height="64" class="box" />
+  <text x="110" y="100" text-anchor="middle" class="text">Ảnh đầu vào</text>
+  <text x="110" y="124" text-anchor="middle" class="small">256x256x3</text>
+  <path d="M110 139 V205 H150" class="arrow" />
+
+  <!-- VGG19 convolution backbone: feature-map style -->
+  <!-- Block 1: 256x256x64, conv x2 -->
+  <rect x="155" y="165" width="20" height="124" class="conv" />
+  <rect x="195" y="165" width="20" height="124" class="conv" />
+  <text x="185" y="310" text-anchor="middle" class="text">Conv 3x3 + ReLU x2</text>
+  <text x="185" y="329" text-anchor="middle" class="tiny">256x256, 64 filters</text>
+  <path d="M215 225 H245 V260" class="pool-arrow" />
+  <text x="238" y="216" text-anchor="middle" class="tiny">MaxPool</text>
+
+  <!-- Block 2: 128x128x128, conv x2 -->
+  <rect x="250" y="245" width="20" height="106" class="conv" />
+  <rect x="290" y="245" width="20" height="106" class="conv" />
+  <text x="280" y="373" text-anchor="middle" class="text">Conv 3x3 + ReLU x2</text>
+  <text x="280" y="392" text-anchor="middle" class="tiny">128x128, 128 filters</text>
+  <path d="M310 300 H350 V342" class="pool-arrow" />
+  <text x="338" y="291" text-anchor="middle" class="tiny">MaxPool</text>
+
+  <!-- Block 3: 64x64x256, conv x4 -->
+  <rect x="355" y="330" width="20" height="88" class="conv" />
+  <rect x="395" y="330" width="20" height="88" class="conv" />
+  <rect x="435" y="330" width="20" height="88" class="conv" />
+  <rect x="475" y="330" width="20" height="88" class="conv" />
+  <text x="425" y="440" text-anchor="middle" class="text">Conv 3x3 + ReLU x4</text>
+  <text x="425" y="459" text-anchor="middle" class="tiny">64x64, 256 filters</text>
+  <path d="M495 375 H535 V430" class="pool-arrow" />
+  <text x="524" y="366" text-anchor="middle" class="tiny">MaxPool</text>
+
+  <!-- Block 4: 32x32x512, conv x4 -->
+  <rect x="540" y="415" width="20" height="74" class="conv" />
+  <rect x="580" y="415" width="20" height="74" class="conv" />
+  <rect x="620" y="415" width="20" height="74" class="conv" />
+  <rect x="660" y="415" width="20" height="74" class="conv" />
+  <text x="610" y="512" text-anchor="middle" class="text">Conv 3x3 + ReLU x4</text>
+  <text x="610" y="531" text-anchor="middle" class="tiny">32x32, 512 filters</text>
+  <path d="M680 452 H735 V392" class="pool-arrow" />
+  <text x="719" y="444" text-anchor="middle" class="tiny">MaxPool</text>
+
+  <!-- Block 5: 16x16x512, conv x4 -->
+  <rect x="740" y="300" width="20" height="92" class="conv" />
+  <rect x="780" y="300" width="20" height="92" class="conv" />
+  <rect x="820" y="300" width="20" height="92" class="conv" />
+  <rect x="860" y="300" width="20" height="92" class="conv" />
+  <text x="810" y="414" text-anchor="middle" class="text">Conv 3x3 + ReLU x4</text>
+  <text x="810" y="433" text-anchor="middle" class="tiny">16x16, 512 filters</text>
+  <path d="M880 346 H938" class="pool-arrow" />
+  <text x="914" y="337" text-anchor="middle" class="tiny">MaxPool</text>
+
+  <!-- Feature map after last pool: 8x8x512 -->
+  <rect x="945" y="322" width="24" height="50" class="conv" />
+  <text x="957" y="314" text-anchor="middle" class="tiny">8x8x512</text>
+  <path d="M969 347 H1030" class="arrow" />
+
+  <!-- Classifier head -->
+  <rect x="1035" y="310" width="120" height="72" class="gap" />
+  <text x="1095" y="340" text-anchor="middle" class="text">GAP</text>
+  <text x="1095" y="364" text-anchor="middle" class="small">toàn cục</text>
+
+  <path d="M1095 310 V260" class="arrow" />
+  <rect x="1035" y="188" width="120" height="72" class="drop" />
+  <text x="1095" y="218" text-anchor="middle" class="text">Dropout</text>
+  <text x="1095" y="242" text-anchor="middle" class="small">0.3</text>
+
+  <path d="M1095 188 V145" class="arrow" />
+  <rect x="1035" y="73" width="120" height="72" class="dense" />
+  <text x="1095" y="103" text-anchor="middle" class="text">Dense 256</text>
+  <text x="1095" y="127" text-anchor="middle" class="small">ReLU</text>
+
+  <path d="M1155 109 H1210" class="arrow" />
+  <rect x="1215" y="73" width="110" height="72" class="drop" />
+  <text x="1270" y="103" text-anchor="middle" class="text">Dropout</text>
+  <text x="1270" y="127" text-anchor="middle" class="small">0.3</text>
+
+  <path d="M1270 145 V188" class="arrow" />
+  <rect x="1215" y="188" width="110" height="72" class="softmax" />
+  <text x="1270" y="218" text-anchor="middle" class="text">Softmax</text>
+  <text x="1270" y="242" text-anchor="middle" class="small">3 lớp</text>
+
+  <path d="M1270 260 V305" class="arrow" />
+  <rect x="1215" y="305" width="110" height="72" class="output" />
+  <text x="1270" y="335" text-anchor="middle" class="text">Đầu ra</text>
+  <text x="1270" y="359" text-anchor="middle" class="small">3 nhãn</text>
+
+  <!-- Color legend -->
+  <rect x="35" y="620" width="360" height="96" class="box" opacity="0.94" />
+  <rect x="55" y="642" width="28" height="20" class="conv" />
+  <text x="95" y="658" class="legend">Conv 3x3 + ReLU</text>
+  <line x1="55" y1="686" x2="88" y2="686" class="pool-arrow" />
+  <text x="95" y="691" class="legend">MaxPool</text>
+  <rect x="205" y="642" width="28" height="20" class="gap" />
+  <text x="245" y="658" class="legend">GAP</text>
+  <rect x="205" y="676" width="28" height="20" class="dense" />
+  <text x="245" y="691" class="legend">Dense / classifier</text>
+</svg>
